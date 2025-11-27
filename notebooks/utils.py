@@ -1,62 +1,145 @@
 import pandas as pd
-grupos_cancer_icd10 = {
-    "comportamiento": {
-        "maligno":        range(0, 100),   # Se aplica solo a códigos Cxx
-        "in_situ":        range(0, 10),    # D00–D09
-        "benigno":        range(10, 37),   # D10–D36
-        "incierto":       range(37, 49),   # D37–D48
-    },
+import numpy as np
 
-    "localizacion_C": {  # Solo códigos que empiezan en C
-        "cavidad_oral_faringe":   range(0, 15),   # C00–C14
-        "digestivo":              range(15, 27),  # C15–C26
-        "respiratorio":           range(30, 40),  # C30–C39
-        "hueso_cartilago":        range(40, 42),  # C40–C41
-        "piel_melanoma":          range(43, 45),  # C43–C44
-        "mama":                   range(50, 51),  # C50
-        "genital_femenino":       range(51, 59),  # C51–C58
-        "genital_masculino":      range(60, 64),  # C60–C63
-        "renal_urinario":         range(64, 69),  # C64–C68
-        "ojo_snc":                range(69, 73),  # C69–C72
-        "endocrino":              range(73, 76),  # C73–C75
-        "mal_definido_metastasis":range(76, 81),  # C76–C80
-    },
+def classify_cancer(code):
+    if pd.isna(code):
+        return np.nan
 
-    "localizacion_D": {  # Solo códigos que empiezan en D
-        "in_situ":                range(0, 10),   # D00–D09
-        "benigno_boca_faringe":   range(10, 12),  # D10–D11
-        "benigno_digestivo":      range(12, 20),  # D12–D19
-        "benigno_respiratorio":   range(20, 23),  # D20–D22
-        "benigno_otros":          range(23, 37),  # D23–D36
-        "incierto":               range(37, 49),  # D37–D48
-    }
-}
-def recode_tipo_cancer(icd10_code):
-    if pd.isna(icd10_code):
-        return None
+    code = code.upper().strip()
 
-    code = icd10_code.strip().upper()
-    if not code or len(code) < 3:
-        return None
+    # -----------------------------------------
+    # BENIGN AND UNCERTAIN
+    if code.startswith("D"):
+        return "Benign/Uncertain"
 
-    letter = code[0]
+    # -----------------------------------------
+    # SPECIAL PREFIX CODES (non-numeric)
+    # -----------------------------------------
+    if code.startswith("C7A"):
+        return "Endocrine"
+    if code.startswith("C7B"):
+        return "Endocrine"
+    if code.startswith("C4A"):
+        return "Skin/Soft_Tissue"
+
+    # -----------------------------------------
+    # Extract numeric part (e.g., C43 → 43)
+    # -----------------------------------------
     try:
-        number = int(code[1:3])
+        num = int(''.join(filter(str.isdigit, code)))
     except ValueError:
-        return None
+        return "Other"
 
-    if letter == 'C':
-        for category, ranges in grupos_cancer_icd10['localizacion_C'].items():
-            if number in ranges:
-                return category
-        if number in grupos_cancer_icd10['comportamiento']['maligno']:
-            return 'maligno_no_especificado'
-    elif letter == 'D':
-        for category, ranges in grupos_cancer_icd10['localizacion_D'].items():
-            if number in ranges:
-                return category
-        for category, ranges in grupos_cancer_icd10['comportamiento'].items():
-            if number in ranges:
-                return category
+    # -----------------------------------------
+    # ICD-10 C-CODE CLASSIFICATION
+    # -----------------------------------------S
 
-    return 'otro_o_no_especificado'
+    # C00–C14 — Lip, oral cavity, pharynx
+    if 0 <= num <= 14:
+        return "Oral"
+
+    # C15–C26 — Digestive organs
+    if 15 <= num <= 26:
+        return "Respiratory/Digestive"
+
+    # C30–C39 — Respiratory system & intrathoracic organs
+    if 30 <= num <= 39:
+        return "Respiratory/Digestive"
+
+    # C40–C41 — Bone & articular cartilage
+    if 40 <= num <= 41:
+        return "Bones/Cartilage"
+
+    # C43–C44 — Skin (melanoma, Merkel cell, other)
+    if 43 <= num <= 44:
+        return "Skin/Soft_Tissue"
+
+    # C45 — Mesothelioma
+    if num == 45:
+        return "Skin/Soft_Tissue"
+
+    # C46 — Kaposi sarcoma
+    if num == 46:
+        return "Hematopoietic/Lymphoid"
+
+    # C47–C49 — Peripheral nerves, retro-/peritoneum, soft tissues
+    if 47 <= num <= 49:
+        return "Skin/Soft_Tissue"
+
+    # C50–C58 — Breast + female genital organs
+    if num==50:
+        return "Breast"
+    #
+    if 51 <= num <= 68:
+        return "Genitourinary"
+
+    # C69–C72 — Eye, brain, CNS
+    if 69 <= num <= 72:
+        return "Nervous_System"
+
+    # C73–C76 — Thyroid, endocrine glands, and ill-defined
+    if 73 <= num < 77:
+        return "Endocrine"
+
+    # C77 — Secondary malignant neoplasm of lymph nodes
+    if num == 77:
+        return "Hematopoietic/Lymphoid"
+
+    # C78–C80 — Secondary cancers (respiratory, digestive, unspecified)
+    if 78 <= num < 80:
+        return "Respiratory/Digestive"
+
+    # C80 specifically – unspecified malignant neoplasm
+    if num == 80:
+        return "Other"
+
+    # C81–C96 — Lymphoid, hematopoietic, related tissue
+    if 81 <= num <= 96:
+        return "Hematopoietic/Lymphoid"
+
+    # -----------------------------------------
+    # EVERYTHING ELSE
+    # -----------------------------------------
+    return "Other"
+
+
+# genera belonging to Enterobacteriaceae
+enterobacteriaceae = [
+    "Escherichia", "Klebsiella", "Enterobacter", "Citrobacter",
+    "Serratia", "Proteus", "Morganella", "Salmonella", "Raoultella",
+    "Pantoea"
+]
+
+def classify_microorganism(name):
+    """
+    Classifies a microorganism into defined label_map categories.
+    The input is expected to be 'Genus_species' format.
+    """
+    # normalize
+    specie = name.replace(".", "").strip()
+    
+    # --- Exact species-level mappings ---
+    if specie == "Escherichia_coli":
+        return "ECOLI"
+
+    if specie == "Staphylococcus_aureus":
+        return "SA"
+
+    if specie == "Pseudomonas_aeruginosa":
+        return "PSA"
+
+    if specie == "Klebsiella_pneumoniae":
+        return "KP"
+
+    if specie == "Streptococcus_pneumoniae":
+        return "SP"
+
+    if specie.startswith("Enterococcus"):
+        return "EC"
+
+    genus = specie.split("_")[0]
+    if genus in enterobacteriaceae:
+        return "OEB"  # Enterobacteria
+
+    else:
+        return "NOEB"
