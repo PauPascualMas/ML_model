@@ -120,26 +120,26 @@ def classify_microorganism(name):
     
     # --- Exact species-level mappings ---
     if specie == "Escherichia_coli":
-        return "ECOLI"
+        return specie
 
     if specie == "Staphylococcus_aureus":
-        return "SA"
+        return specie
 
     if specie == "Pseudomonas_aeruginosa":
-        return "PSA"
+        return specie
 
     if specie == "Klebsiella_pneumoniae":
-        return "KP"
+        return specie
 
     if specie == "Streptococcus_pneumoniae":
-        return "SP"
+        return specie
 
     if specie.startswith("Enterococcus"):
-        return "EC"
+        return "Enterococcus"
 
     genus = specie.split("_")[0]
     if genus in enterobacteriaceae:
-        return "OEB"  # Enterobacteria
+        return "Enterobacteria"  # Enterobacteria
 
     else:
-        return "NOEB"
+        return "Other"
