@@ -1,4 +1,6 @@
-data/**
-results/**
-notebooks/__**
-notebooks/catboost**
+# Data & results
+data/
+results/
+
+# Notebook artifacts
+notebooks/__*
