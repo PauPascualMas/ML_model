@@ -1,4 +1,4 @@
-data/*
-results/*
-notebooks/__*
-notebooks/catboost*
+data/**
+results/**
+notebooks/__**
+notebooks/catboost**
