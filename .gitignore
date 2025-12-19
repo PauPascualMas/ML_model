@@ -1,6 +1,2 @@
-# Data & results
-data/
-results/
-
-# Notebook artifacts
-notebooks/__*
+# training
+training/**
