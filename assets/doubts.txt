@@ -1,7 +1,0 @@
-### DUDAS ###
-
-Codificación de episodios previos
-- tiene sentido computar 'has_ever_BLEE' si han pasado 3 meses del episodio previo?
-- bacterial subspecie no necesita estar determinada no? when normalizing bacteria name to cluster it into groups
-- Screenshot -> considera que no tiene hemocultivo? si tiene hemocultivo en algun momento posterior a la fecha de ingreso se considera hemocultivo
-- Klebsiella pneumoniae BLEE =/ Klebsiella pneumoniae (diferentes filas, )
