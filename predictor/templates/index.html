@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mortality Risk Prediction</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Mortality Risk Prediction</h1>
+        <p class="caption"><em>Clinical decision support — for professional use only</em></p>
+    </header>
+
+    <form id="predict-form" method="post" action="{% url 'predict' %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" min="18" max="110" value="65">
+        </div>
+
+        <div class="form-group">
+            <label for="sexo">Sexo:</label>
+            <select name="sexo" id="sexo">
+                <option value="1">Hombre</option>
+                <option value="0">Mujer</option>
+            </select>
+        </div>
+
+        <fieldset class="checkbox-group">
+            <legend>Medical Features / Conditions</legend>
+            {% for feature in features %}
+                <label for="{{ feature.name }}">
+                    <input type="checkbox" name="{{ feature.name }}" id="{{ feature.name }}"> {{ feature.label }}
+                </label>
+            {% endfor %}
+        </fieldset>
+
+        <button type="submit" class="btn">Predict Mortality Risk</button>
+    </form>
+
+    <section id="output" class="output"></section>
+    <section id="shap" class="shap-chart"></section>
+
+    <footer>
+        <p class="caption disclaimer">
+            ⚠️ This tool provides decision support only and does not replace clinical judgment.
+        </p>
+    </footer>
+</div>
+
+<script>
+const form = document.getElementById("predict-form");
+const outputDiv = document.getElementById("output");
+const shapDiv = document.getElementById("shap");
+const button = form.querySelector("button[type='submit']");
+
+form.onsubmit = async (e) => {
+    e.preventDefault();
+    outputDiv.innerHTML = "";
+    shapDiv.innerHTML = "";
+    button.disabled = true;
+
+    const data = new FormData(form);
+
+    try {
+        // Prediction
+        const r = await fetch("{% url 'predict' %}", { method: "POST", body: data });
+        const res = await r.json();
+
+        let riskClass = "low-risk";
+        if (res.mortality_risk >= 0.2) riskClass = "high-risk";
+        else if (res.mortality_risk >= 0.05) riskClass = "moderate-risk";
+
+        outputDiv.innerHTML =
+            `<div class="risk ${riskClass}">
+                <b>Mortality risk:</b> ${(res.mortality_risk * 100).toFixed(1)}%<br>
+                <b>Risk band:</b> ${res.risk_band}
+             </div>`;
+
+        // SHAP
+        const s = await fetch("{% url 'explain' %}", { method: "POST", body: data });
+        const shap = await s.json();
+
+        let html = "<h3>Top Contributing Features</h3><ul>";
+        for (const [k, v] of Object.entries(shap)) {
+            html += `<li>${k}: ${v.toFixed(3)}</li>`;
+        }
+        html += "</ul>";
+        shapDiv.innerHTML = html;
+        shapDiv.scrollIntoView({ behavior: "smooth" });
+
+    } catch (error) {
+        outputDiv.innerHTML = `<p class="error">Error: ${error}</p>`;
+    } finally {
+        button.disabled = false;
+    }
+};
+</script>
+</body>
+</html>

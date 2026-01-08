@@ -1,0 +1,7 @@
+{
+  "model": "Mortality predictor",
+  "version": "1.0",
+  "date": "2026-01-07",
+  "auc": 0.7662784140204755,
+  "prevalence": 0.18361153262518967
+}

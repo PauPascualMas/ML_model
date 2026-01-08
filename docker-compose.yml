@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    container_name: bacthecom_web
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 4
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./model:/app/model           # Make your trained models available
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: bacthecom_db
+    environment:
+      POSTGRES_DB: bacthecom
+      POSTGRES_USER: bacthecom
+      POSTGRES_PASSWORD: securepassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+

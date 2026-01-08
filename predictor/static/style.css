@@ -1,0 +1,114 @@
+/* ===== Global ===== */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== Container ===== */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* ===== Headings ===== */
+h1, h2, h3 {
+    color: #0052cc;  /* professional blue */
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2em;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+/* ===== Form ===== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* ===== Button ===== */
+button {
+    padding: 12px;
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #003d99;
+}
+
+/* ===== Alerts / Risk levels ===== */
+.low-risk {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.moderate-risk {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.high-risk {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* ===== SHAP chart container ===== */
+.shap-chart {
+    margin-top: 30px;
+}
+
+/* ===== Footer / Caption ===== */
+.caption {
+    font-size: 0.9em;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+}
