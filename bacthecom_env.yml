@@ -1,0 +1,43 @@
+name: bacthecom_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - pandas
+  - scikit-learn
+  - scipy
+  - matplotlib
+  - seaborn     # added because it was missing
+  - catboost
+  - lightgbm      # in case you want LightGBM for other models
+  - xgboost
+  - joblib
+  - shap
+  - pip:
+    - Django
+    - asgiref
+    - cloudpickle
+    - contourpy
+    - cycler
+    - fonttools
+    - graphviz
+    - gunicorn
+    - kiwisolver
+    - llvmlite
+    - narwhals
+    - numba
+    - packaging
+    - pillow
+    - plotly
+    - pyparsing
+    - python-dateutil
+    - pytz
+    - slicer
+    - sqlparse
+    - threadpoolctl
+    - tqdm
+    - typing_extensions
+    - tzdata
+prefix: "/home/ppascual/micromamba/envs/bacthecom"
