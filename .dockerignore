@@ -1,0 +1,8 @@
+*.db
+*.sif
+training/data/*
+training/**/__pycache__/
+*.pyc
+.env
+.vscode/
+.idea/

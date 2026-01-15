@@ -9,9 +9,10 @@ dependencies:
   - scikit-learn
   - scipy
   - matplotlib
-  - seaborn     # added because it was missing
+  - seaborn     
+  - optuna
   - catboost
-  - lightgbm      # in case you want LightGBM for other models
+  - lightgbm     
   - xgboost
   - joblib
   - shap
