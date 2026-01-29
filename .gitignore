@@ -1,6 +1,7 @@
 # training
 training/data/**
 training/results/**
+# cache
 __pycache__/
 *.pyc
 .env
@@ -8,5 +9,6 @@ staticfiles/
 .db
 .vscode/
 .idea/
-*.sif
 .credentials
+# singularity image
+.sif
