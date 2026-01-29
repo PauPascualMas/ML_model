@@ -1,6 +1,6 @@
 # training
-training/data/**
-training/results/**
+training/data/
+training/results/
 # cache
 __pycache__/
 *.pyc
@@ -11,4 +11,10 @@ staticfiles/
 .idea/
 .credentials
 # singularity image
-.sif
+*.sif
+
+# binaries
+*.img
+*.sqsh
+*.squashfs
+*.tar
