@@ -1,0 +1,33 @@
+Starting CatBoost Optuna optimization...
+[Trial 802 | Fold 1] PR-AUC=0.5494, ROC-AUC=0.7845
+[Trial 802 | Fold 2] PR-AUC=0.5577, ROC-AUC=0.8148
+[Trial 808 | Fold 2] PR-AUC=0.5599, ROC-AUC=0.8169
+[Trial 821 | Fold 2] PR-AUC=0.5618, ROC-AUC=0.8183
+[Trial 828 | Fold 2] PR-AUC=0.5653, ROC-AUC=0.8160
+[Trial 838 | Fold 2] PR-AUC=0.5666, ROC-AUC=0.8083
+Saved Optuna trials to: /mnt/results/training/catboost/train_20260203000109/optuna_trials_array0.csv
+Saved best hyperparameters to: /mnt/results/training/catboost/train_20260203000109/best_params.json
+Saved best metrics to: /mnt/results/training/catboost/train_20260203000109/best_metrics.json
+
+================================================================================
+BEST TRIAL SUMMARY
+================================================================================
+Date & Time     : 2026-02-03 05:58:06.331372
+Study name      : bact_ctb_mort30
+Best trial ID   : 838
+CV PR-AUC       : 0.5524
+CV ROC-AUC      : 0.8056
+Test PR-AUC     : 0.5186
+Test ROC-AUC    : 0.8086
+Seed            : 99
+Array task ID   : 0
+--------------------------------------------------------------------------------
+Best hyperparameters:
+  learning_rate: 0.06494718500840095
+  depth: 10
+  l2_leaf_reg: 10.053728297209785
+  min_data_in_leaf: 143
+  random_strength: 0.974757951137271
+  bagging_temperature: 0.5318617874668132
+================================================================================
+

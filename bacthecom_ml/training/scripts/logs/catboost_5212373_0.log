@@ -1,0 +1,11 @@
+Starting CatBoost Optuna optimization...
+[Trial 2459 | Fold 1] PR-AUC=0.5244, ROC-AUC=0.7876
+[Trial 2459 | Fold 2] PR-AUC=0.5400, ROC-AUC=0.8179
+[Trial 2465 | Fold 1] PR-AUC=0.5620, ROC-AUC=0.7955
+[Trial 2489 | Fold 2] PR-AUC=0.5639, ROC-AUC=0.8109
+[Trial 2499 | Fold 2] PR-AUC=0.5640, ROC-AUC=0.8141
+[Trial 2520 | Fold 1] PR-AUC=0.5645, ROC-AUC=0.7974
+[Trial 2615 | Fold 2] PR-AUC=0.5682, ROC-AUC=0.8165
+[Trial 3037 | Fold 2] PR-AUC=0.5712, ROC-AUC=0.8175
+[Trial 3412 | Fold 2] PR-AUC=0.5749, ROC-AUC=0.8194
+[Trial 3877 | Fold 2] PR-AUC=0.5817, ROC-AUC=0.8180

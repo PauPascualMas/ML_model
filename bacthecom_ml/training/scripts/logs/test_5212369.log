@@ -1,0 +1,5 @@
+[2026-02-03 08:35:28] Loading Optuna study
+[2026-02-03 08:35:28] Training final CatBoost model
+[2026-02-03 08:35:39] Computing SHAP values
+[2026-02-03 08:36:05] Saved SHAP outputs
+[2026-02-03 08:36:06] DONE — model, metrics, plots, SHAP saved

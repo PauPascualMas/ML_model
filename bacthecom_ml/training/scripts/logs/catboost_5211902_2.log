@@ -1,0 +1,53 @@
+Traceback (most recent call last):
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: alembic_version.version_num
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/scripts/train_catboost_optuna.py", line 191, in <module>
+    study = optuna.create_study(
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/optuna/_convert_positional_args.py", line 135, in converter_wrapper
+    return func(**kwargs)  # type: ignore[call-arg]
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/optuna/study/study.py", line 1295, in create_study
+    storage = storages.get_storage(storage)
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/optuna/storages/__init__.py", line 49, in get_storage
+    return _CachedStorage(RDBStorage(storage))
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/optuna/storages/_rdb/storage.py", line 242, in __init__
+    self._version_manager = _VersionManager(self.url, self.engine, self.scoped_session)
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/optuna/storages/_rdb/storage.py", line 1058, in __init__
+    self._init_alembic()
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/optuna/storages/_rdb/storage.py", line 1089, in _init_alembic
+    self._set_alembic_revision(revision)
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/optuna/storages/_rdb/storage.py", line 1096, in _set_alembic_revision
+    context.stamp(script, revision)
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/alembic/runtime/migration.py", line 572, in stamp
+    head_maintainer.update_to_step(step)
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/alembic/runtime/migration.py", line 782, in update_to_step
+    self._insert_version(vers)
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/alembic/runtime/migration.py", line 718, in _insert_version
+    self.context.impl._exec(
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/alembic/ddl/impl.py", line 256, in _exec
+    return conn.execute(construct, params)
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: alembic_version.version_num
+[SQL: INSERT INTO alembic_version (version_num) VALUES ('v3.2.0.a') RETURNING version_num]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/mnt/scripts/test_model.py", line 153, in <module>
+    shap_values = model.get_feature_importance(
+  File "/opt/conda/envs/bacthecom/lib/python3.10/site-packages/catboost/core.py", line 3231, in get_feature_importance
+    raise CatBoostError("Invalid data type={}, must be catboost.Pool.".format(_typeof(data)))
+_catboost.CatBoostError: Invalid data type=<class 'pandas.core.frame.DataFrame'>, must be catboost.Pool.
